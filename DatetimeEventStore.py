@@ -64,12 +64,12 @@ def generateEvent():
     # Initialisation du variable pour stocker la quantite de donnees a generer
     amount = "0"
 
-    # Boucle pour saisie des donnees
+    # Boucle de validation pour la saisie des donnees
     while 1 > int(amount) or int(amount) > 100 :
         amount = input("Veuillez spécifier la quantité d'events a générer (max 100): ")
-        #print(type(amount))
-        #print(type(" "))
+
         try:
+            # Si la saisie n'est pas du bon type, l'erreur est gérée par le try except. Si le type est bon mais la taille ne l'est pas, le if else gère cela
             if 1 < int(amount) <= 100:
                 pass
             else:
