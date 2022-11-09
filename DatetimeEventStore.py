@@ -14,6 +14,7 @@ class Event:
         self.Timestamp = timestamp
 
 
+# Connexion a la BDD
 def connectDB():
     cluster = MongoClient("mongodb+srv://mickdevv:Kitty-man3@cluster0.kv0ycs0.mongodb.net/?retryWrites=true&w=majority")
     db = cluster["DatetimeEventStore"]
@@ -22,6 +23,7 @@ def connectDB():
     return collection
 
 
+# Stockage d'un event
 def store_event(event):
     # Connexion a la BDD
     collection = connectDB()
@@ -31,7 +33,7 @@ def store_event(event):
     collection.insert_one(post)
 
 
-
+# Recherche d'events
 def get_events(startDate, startTime, endDate, endTime):
     # Connexion a la BDD
     collection = connectDB()
@@ -46,6 +48,7 @@ def get_events(startDate, startTime, endDate, endTime):
             print(event)
 
 
+# Montrer tous les events dans la BDD
 def get_all_events():
     # Connexion a la BDD
     collection = connectDB()
@@ -55,6 +58,7 @@ def get_all_events():
         print(event)
 
 
+# Generation des events
 def generateEvent():
     # Initialisation du variable pour stocker la quantite de donnees a generer
     amount = 0
@@ -70,13 +74,15 @@ def generateEvent():
     for i in tqdm(range(0, int(amount))):
         eventTitle = "Title" + str(random.randint(0, 10000))
         eventLocation = "Location" + str(random.randint(0, 10000))
-        eventDateTime = datetime.datetime.now().replace(random.randint(1950, 2050), random.randint(1, 12),random.randint(1, 28))
+        eventDateTime = datetime.datetime.now().replace(random.randint(1950, 2050), random.randint(1, 12),
+                                                        random.randint(1, 28))
         eventTimestamp = eventDateTime.timestamp()
 
         # Stockage de l'event dans la BDD
         store_event(Event(eventDateTime, eventTitle, eventLocation, eventTimestamp))
 
 
+# Vidange de la BDD
 def clearEvents():
     # Etape de verification pour eviter des pertes accidentaux de donnees
     verification = input("Etes-vous sur (Y/N) ? ")
@@ -85,7 +91,7 @@ def clearEvents():
     while verification != "Y" and verification != "y" and verification != "N" and verification != "n":
         print("Veuillez reessayer")
         verification = input("Etes-vous sur (Y/N) ? ")
-    if verification == "y" or verification == "Y" :
+    if verification == "y" or verification == "Y":
         # Connexion a la BDD
         collection = connectDB()
 

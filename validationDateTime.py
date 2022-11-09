@@ -1,17 +1,19 @@
 import datetime
 
+
 def datetimeToTimestamp(date, time):
     dateArray = date.split("-")
     timeArray = time.split(":")
     print(timeArray)
-    dtime = datetime.datetime(int(dateArray[0]), int(dateArray[1]), int(dateArray[2]), int(timeArray[0]), int(timeArray[1]), int(timeArray[2]))
+    dtime = datetime.datetime(int(dateArray[0]), int(dateArray[1]), int(dateArray[2]), int(timeArray[0]),
+                              int(timeArray[1]), int(timeArray[2]))
     print()
     return dtime.timestamp().__int__(), dtime
 
-def validateDate(date):
 
+def validateDate(date):
     try:
-        #Separation des valeurs dans le string
+        # Separation des valeurs dans le string
         if date[4] == "-" and date[7] == "-":
             dateArray = date.split("-")
 
@@ -36,10 +38,8 @@ def validateDate(date):
             return False
 
     except:
-            print("(Int) Erreur de validation de la date. Veuillez la saisir en utilisant le format suivant : YYYY-MM-DD")
-            return False
-
-
+        print("(Int) Erreur de validation de la date. Veuillez la saisir en utilisant le format suivant : YYYY-MM-DD")
+        return False
 
     return True
 

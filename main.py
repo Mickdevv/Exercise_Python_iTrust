@@ -2,11 +2,10 @@ import EnterEvent
 import datetime
 import DatetimeEventStore
 
-import validationDateTime
 
 if __name__ == '__main__':
     print(datetime.datetime.now())
-    Events = []
+
     # Initialization de userInput
     userInput = ""
 
@@ -24,11 +23,13 @@ if __name__ == '__main__':
         userInput = input("Votre choix : ")
         print()
 
+        # Ajouter l'event a la base de donnees
         if userInput == "1":
-            # Ajouter l'event a la base de donnees
+
             event = EnterEvent.enterEvent()
             DatetimeEventStore.store_event(event)
 
+        # Saisie d'un event
         elif userInput == "2":
             print("\nSaisissez la date de debut de la recherche : ")
             x, startDate, startTime = EnterEvent.enterDateTime()
@@ -37,16 +38,17 @@ if __name__ == '__main__':
             # Recherche de la BDD
             DatetimeEventStore.get_events(startDate, startTime, endDate, endTime)
 
+        # Afficher tout les events
         elif userInput == "3":
             # Tout afficher
             DatetimeEventStore.get_all_events()
 
+        # Generation aleatoire des events
         elif userInput == "4":
-            # Generation aleatoire des events
             DatetimeEventStore.generateEvent()
 
+        # Suppression de tout events
         elif userInput == "5":
-            # Suppression des events
             DatetimeEventStore.clearEvents()
 
         else:
