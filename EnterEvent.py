@@ -1,11 +1,10 @@
+import datetime
+
 import validationDateTime
-from EventClass import Event
+from DatetimeEventStore import Event
 
-def enterEvent():
-    eventTitle = input("Titre de l'evenement : ")
-    eventlocation = input("Ou se situe l'evenement ? ")
-    print("Quand se passe l'evenement ?")
 
+def enterDateTime():
     # Validation de la date
     eventDate = input("Date (YYYY-MM-DD) : ")
     while not validationDateTime.validateDate(eventDate):
@@ -16,8 +15,27 @@ def enterEvent():
     while not validationDateTime.validateTime(eventTime):
         eventTime = input("Time (HH:MM:SS) : ")
 
-    eventDateTime = (eventDate + " " + eventTime)
+    return (eventDate + " " + eventTime), eventDate, eventTime
 
-    print("Title : " + eventTitle + " | Location : " + eventlocation + " | dateTime : " + eventDateTime)
 
-    return Event(eventDateTime, eventTitle, eventlocation)
+def enterEvent():
+    eventTitle = input("Titre de l'evenement : ")
+    while eventTitle == "":
+        eventTitle = input("Titre de l'evenement : ")
+        print("Ce champ est obligatoire. \n")
+
+    eventLocation = input("Ou se situe l'evenement ? ")
+    while eventLocation == "":
+        eventLocation = input("Ou se situe l'evenement ? ")
+        print("Ce champ est obligatoire. \n")
+
+    print("Quand se passe l'evenement ?")
+
+    eventDateTime, eventDate, eventTime = enterDateTime()
+    eventTimestamp, eventDateTime = validationDateTime.datetimeToTimestamp(eventDate, eventTime)
+
+    print(
+        "Title : " + eventTitle + " | Location : " + eventLocation + " | dateTime : " + str(eventDateTime) + " | Timestamp : " + str(
+            eventTimestamp))
+
+    return Event(eventDateTime, eventTitle, eventLocation, eventTimestamp)
