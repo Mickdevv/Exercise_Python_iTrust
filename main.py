@@ -3,6 +3,7 @@ import datetime
 import DatetimeEventStore
 
 
+# Fonction main pour lancer l'application
 if __name__ == '__main__':
     print(datetime.datetime.now())
 
