@@ -2,6 +2,7 @@ import datetime
 from tqdm import tqdm
 from pymongo import MongoClient
 import random
+
 import validationDateTime
 
 
@@ -61,14 +62,22 @@ def get_all_events():
 # Generation des events
 def generateEvent():
     # Initialisation du variable pour stocker la quantite de donnees a generer
-    amount = 0
+    amount = "0"
 
     # Boucle pour saisie des donnees
-    while 1 > int(amount) or int(amount) > 100 or amount == '0':
+    while 1 > int(amount) or int(amount) > 100 :
+        amount = input("Veuillez spécifier la quantité d'events a générer (max 100): ")
+        #print(type(amount))
+        #print(type(" "))
         try:
-            amount = input("Veuillez spécifier la quantité d'events a générer (max 100): ")
+            if 1 < int(amount) <= 100:
+                pass
+            else:
+                print("Saisie en dehors de la fourchette imposée")
         except:
-            print("Erreur : saisie non valide")
+            print("Erreur : type saisie non valide")
+            amount = "0"
+
 
     # Boucle de generation. Les donnees sont generees aleatoirement
     for i in tqdm(range(0, int(amount))):
