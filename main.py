@@ -2,6 +2,7 @@ import EnterEvent
 import datetime
 import DatetimeEventStore
 
+# les packages a installer : pymongo, tdqm
 
 # Fonction main pour lancer l'application
 if __name__ == '__main__':
