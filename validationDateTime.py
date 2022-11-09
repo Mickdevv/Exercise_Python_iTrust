@@ -3,8 +3,10 @@ import datetime
 def datetimeToTimestamp(date, time):
     dateArray = date.split("-")
     timeArray = time.split(":")
-    dtime = datetime.datetime(int(dateArray[0]), int(dateArray[1]), int(dateArray[2]), int(timeArray[0]),0,0)
-    return dtime.timestamp(), dtime
+    print(timeArray)
+    dtime = datetime.datetime(int(dateArray[0]), int(dateArray[1]), int(dateArray[2]), int(timeArray[0]), int(timeArray[1]), int(timeArray[2]))
+    print()
+    return dtime.timestamp().__int__(), dtime
 
 def validateDate(date):
 

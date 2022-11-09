@@ -1,5 +1,3 @@
-import datetime
-
 import validationDateTime
 from DatetimeEventStore import Event
 
@@ -15,7 +13,7 @@ def enterDateTime():
     while not validationDateTime.validateTime(eventTime):
         eventTime = input("Time (HH:MM:SS) : ")
 
-    return (eventDate + " " + eventTime), eventDate, eventTime
+    return str(eventDate + " " + eventTime), eventDate, eventTime
 
 
 def enterEvent():
@@ -34,8 +32,7 @@ def enterEvent():
     eventDateTime, eventDate, eventTime = enterDateTime()
     eventTimestamp, eventDateTime = validationDateTime.datetimeToTimestamp(eventDate, eventTime)
 
-    print(
-        "Title : " + eventTitle + " | Location : " + eventLocation + " | dateTime : " + str(eventDateTime) + " | Timestamp : " + str(
-            eventTimestamp))
+
+    print("Title : " + eventTitle + " | Location : " + eventLocation + " | dateTime : " + str(eventDateTime) + " | Timestamp : " + str(eventTimestamp))
 
     return Event(eventDateTime, eventTitle, eventLocation, eventTimestamp)

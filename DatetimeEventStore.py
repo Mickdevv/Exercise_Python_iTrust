@@ -1,5 +1,5 @@
 import datetime
-
+from tqdm import tqdm
 from pymongo import MongoClient
 import random
 
@@ -30,51 +30,67 @@ def store_event(event):
     post = {"Title": event.Title, "Location": event.Location, "DateTime": event.DateTime, "Timestamp": event.Timestamp}
     collection.insert_one(post)
 
-    print("Event ajoute a la BDD")
 
 
 def get_events(startDate, startTime, endDate, endTime):
     # Connexion a la BDD
     collection = connectDB()
 
-    startTS = validationDateTime.datetimeToTimestamp(startDate, startTime)
-    endTS = validationDateTime.datetimeToTimestamp(endDate, endTime)
+    # Demander a l'utilisateur d'entrer le creneau cible, puis conversion en timestamp pour la comparaison
+    startTS, x = validationDateTime.datetimeToTimestamp(startDate, startTime)
+    endTS, x = validationDateTime.datetimeToTimestamp(endDate, endTime)
+
+    # Boucle pour parcourir la BDD pour des events correspondants
     for event in collection.find():
-        if startTS <= int(event["Timestamp"]) <= endTS:
+        if int(startTS) <= int(event["Timestamp"]) <= int(endTS):
             print(event)
-    print(1)
 
 
 def get_all_events():
     # Connexion a la BDD
     collection = connectDB()
+
+    # Montrer toute la BDD
     for event in collection.find():
         print(event)
 
 
 def generateEvent():
+    # Initialisation du variable pour stocker la quantite de donnees a generer
     amount = 0
+
+    # Boucle pour saisie des donnees
     while 1 > int(amount) or int(amount) > 100 or amount == '0':
         try:
             amount = input("Veuillez specifier la quantite d'events a generer (max 100): ")
         except:
             print("Erreur : saisie non valide")
 
-    for i in range(int(amount)):
+    # Boucle de generation. Les donnees sont generees aleatoirement
+    for i in tqdm(range(0, int(amount))):
         eventTitle = "Title" + str(random.randint(0, 10000))
         eventLocation = "Location" + str(random.randint(0, 10000))
-        eventDateTime = datetime.datetime.now().replace(random.randint(1950, 2050), random.randint(1, 12),
-                                                        random.randint(0, 23))
+        eventDateTime = datetime.datetime.now().replace(random.randint(1950, 2050), random.randint(1, 12),random.randint(1, 28))
         eventTimestamp = eventDateTime.timestamp()
+
+        # Stockage de l'event dans la BDD
         store_event(Event(eventDateTime, eventTitle, eventLocation, eventTimestamp))
 
 
 def clearEvents():
-    # Connexion a la BDD
-    collection = connectDB()
+    # Etape de verification pour eviter des pertes accidentaux de donnees
+    verification = input("Etes-vous sur (Y/N) ? ")
 
-    d = collection.find()
-    for document in d:
-        print(document)
-        collection.delete_one({"_id": document["_id"]})
-    #print(d + " Documents supprimes !")
+    # Boucle de validation de la saisie
+    while verification != "Y" and verification != "y" and verification != "N" and verification != "n":
+        print("Veuillez reessayer")
+        verification = input("Etes-vous sur (Y/N) ? ")
+    if verification == "y" or verification == "Y" :
+        # Connexion a la BDD
+        collection = connectDB()
+
+        # Recherche et suppression des donnees
+        d = collection.find()
+        for document in d:
+            print(document)
+            collection.delete_one({"_id": document["_id"]})
