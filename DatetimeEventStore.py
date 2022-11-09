@@ -2,10 +2,10 @@ import datetime
 from tqdm import tqdm
 from pymongo import MongoClient
 import random
-
 import validationDateTime
 
 
+# Classe pour les events
 class Event:
     def __init__(self, dateTime, title, location, timestamp):
         self.DateTime = dateTime
@@ -66,7 +66,7 @@ def generateEvent():
     # Boucle pour saisie des donnees
     while 1 > int(amount) or int(amount) > 100 or amount == '0':
         try:
-            amount = input("Veuillez specifier la quantite d'events a generer (max 100): ")
+            amount = input("Veuillez spécifier la quantité d'events a générer (max 100): ")
         except:
             print("Erreur : saisie non valide")
 
@@ -89,7 +89,7 @@ def clearEvents():
 
     # Boucle de validation de la saisie
     while verification != "Y" and verification != "y" and verification != "N" and verification != "n":
-        print("Veuillez reessayer")
+        print("Veuillez réessayer")
         verification = input("Etes-vous sur (Y/N) ? ")
     if verification == "y" or verification == "Y":
         # Connexion a la BDD

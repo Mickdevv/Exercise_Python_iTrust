@@ -15,10 +15,10 @@ if __name__ == '__main__':
         # Menu principal
         print()
         print("Veuillez choisir une des options ci-dessous :")
-        print("1 : Ajouter un evenement a la base de donnees")
-        print("2 : Recuperer des evenements")
-        print("3 : Afficher toutes les entrees")
-        print("4 : Generer des entrees")
+        print("1 : Ajouter un event a la base de données")
+        print("2 : Recuperer des event")
+        print("3 : Afficher toutes les entrées")
+        print("4 : Générer des entrées")
         print("5 : Vider la BDD")
         userInput = input("Votre choix : ")
         print()
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
         # Saisie d'un event
         elif userInput == "2":
-            print("\nSaisissez la date de debut de la recherche : ")
+            print("\nSaisissez la date de début de la recherche : ")
             x, startDate, startTime = EnterEvent.enterDateTime()
             print("\nSaisissez la date de fin de la recherche : ")
             x, endDate, endTime = EnterEvent.enterDateTime()
@@ -52,5 +52,5 @@ if __name__ == '__main__':
             DatetimeEventStore.clearEvents()
 
         else:
-            print("Choix errone. Veuillez choisir une des options citees dans le menu")
+            print("Choix erroné. Veuillez choisir une des options citées dans le menu")
 

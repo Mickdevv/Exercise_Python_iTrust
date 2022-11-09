@@ -20,18 +20,18 @@ def enterDateTime():
 # Fonction globale pour la saisie et ajout a la BDD d'un event
 def enterEvent():
     # Boucle validation saisie du titre (ne pas laisser vide)
-    eventTitle = input("Titre de l'evenement : ")
+    eventTitle = input("Titre de l'event : ")
     while eventTitle == "":
-        eventTitle = input("Titre de l'evenement : ")
+        eventTitle = input("Titre de l'event : ")
         print("Ce champ est obligatoire. \n")
 
     # Boucle validation saisie de la localisation (ne pas laisser vide)
-    eventLocation = input("Ou se situe l'evenement ? ")
+    eventLocation = input("Ou se situe l'event ? ")
     while eventLocation == "":
-        eventLocation = input("Ou se situe l'evenement ? ")
+        eventLocation = input("Ou se situe l'event ? ")
         print("Ce champ est obligatoire. \n")
 
-    print("Quand se passe l'evenement ?")
+    print("Quand se passe l'event ?")
 
     # Fonction de saisie de la date et heure de l'event
     eventDateTime, eventDate, eventTime = enterDateTime()
@@ -39,7 +39,7 @@ def enterEvent():
     eventTimestamp, eventDateTime = validationDateTime.datetimeToTimestamp(eventDate, eventTime)
 
     # Montrer les infos saisie
-    print("Title : " + eventTitle + " | Location : " + eventLocation + " | dateTime : " + str(
+    print("Titre : " + eventTitle + " | Localisation : " + eventLocation + " | dateTime : " + str(
         eventDateTime) + " | Timestamp : " + str(eventTimestamp))
 
     return Event(eventDateTime, eventTitle, eventLocation, eventTimestamp)
