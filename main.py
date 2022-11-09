@@ -17,7 +17,7 @@ if __name__ == '__main__':
         print()
         print("Veuillez choisir une des options ci-dessous :")
         print("1 : Ajouter un event a la base de données")
-        print("2 : Recuperer des event")
+        print("2 : Récupérer des events")
         print("3 : Afficher toutes les entrées")
         print("4 : Générer des entrées")
         print("5 : Vider la BDD")
