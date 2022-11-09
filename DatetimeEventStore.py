@@ -2,7 +2,6 @@ import datetime
 from tqdm import tqdm
 from pymongo import MongoClient
 import random
-
 import validationDateTime
 
 
